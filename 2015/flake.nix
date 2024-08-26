@@ -13,8 +13,11 @@
     {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [ ocaml ] ++
+          packages = with pkgs; [ ocaml opam] ++
             (with pkgs.ocamlPackages; [ dune_3 odoc utop fmt base]);
+            VshellHook = ''
+            eval $(opam env)
+            '';
         };
       });
     };
