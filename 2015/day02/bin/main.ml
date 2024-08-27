@@ -21,6 +21,12 @@ let sum_box { l; w; h } =
     2*sum + extra
 ;;
 
+let sum_ribbon { l; w; h } = 
+    let sides = BatList.min [ l+w; w+h; h+l ] in 
+    let bow = l*w*h in 
+    2*sides + bow
+;;
+
 let get_dims str = 
     str
     |> String.split_on_chars ~on:[ 'x' ]
@@ -42,10 +48,20 @@ let parse_box file_contents =
 
 
 let () = 
-    let result = "input.txt"
-    |> In_channel.read_all
+    let data = "input.txt"
+    |> In_channel.read_all 
     |> parse_box 
+    in 
+
+    let result = data
     |> List.map ~f:sum_box
     |> List.fold_left ~f:(+) ~init:0 
     in 
+    Printf.printf "%d\n" result;
+
+    let result = data
+    |> List.map ~f:sum_ribbon
+    |> List.fold_left ~f:(+) ~init:0 
+    in 
     Printf.printf "%d\n" result
+;;
