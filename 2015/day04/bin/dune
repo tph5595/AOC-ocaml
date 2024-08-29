@@ -1,0 +1,5 @@
+(executable
+ (public_name day04)
+ (name main)
+ (libraries core batteries day04)
+ (preprocess (pps ppx_jane)))
